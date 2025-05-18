@@ -18,5 +18,14 @@ RSpec.describe "recipes#index", type: :request do
       expect(d.map(&:jsonapi_type).uniq).to match_array(['recipes'])
       expect(d.map(&:id)).to match_array([recipe1.id, recipe2.id])
     end
+
+    context 'total_likes_count' do
+      let!(:like) { create(:like, recipe: recipe2) }
+
+      it 'returns the counter' do
+        make_request
+        expect(d.map(&:total_likes_count)).to match_array([0, 1])
+      end
+    end
   end
 end
