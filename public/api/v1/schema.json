@@ -240,6 +240,85 @@
       }
     },
     {
+      "name": "LikeResource",
+      "type": "likes",
+      "graphql_entrypoint": "likes",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "user_id": {
+          "type": "integer",
+          "readable": false,
+          "writable": true,
+          "description": null
+        },
+        "recipe_id": {
+          "type": "integer",
+          "readable": false,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "user_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "recipe_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "recipe": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "RecipeResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
       "name": "RecipeResource",
       "type": "recipes",
       "graphql_entrypoint": "recipes",
@@ -275,6 +354,12 @@
           "writable": true,
           "description": null
         },
+        "total_likes_count": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
         "created_at": {
           "type": "datetime",
           "readable": true,
@@ -294,6 +379,8 @@
         "difficulty": {
         },
         "preparation_time": {
+        },
+        "total_likes_count": {
         },
         "created_at": {
         }
@@ -366,6 +453,17 @@
             "lte"
           ]
         },
+        "total_likes_count": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
         "created_at": {
           "type": "datetime",
           "operators": [
@@ -399,6 +497,11 @@
           "type": "many_to_many",
           "description": null,
           "resource": "CategoryResource"
+        },
+        "likes": {
+          "type": "has_many",
+          "description": null,
+          "resource": "LikeResource"
         }
       },
       "stats": {
@@ -423,6 +526,19 @@
       "actions": {
         "index": {
           "resource": "CategoryResource"
+        }
+      }
+    },
+    "/api/v1/likes": {
+      "actions": {
+        "index": {
+          "resource": "LikeResource"
+        },
+        "create": {
+          "resource": "LikeResource"
+        },
+        "destroy": {
+          "resource": "LikeResource"
         }
       }
     },

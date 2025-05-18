@@ -17,5 +17,14 @@ RSpec.describe "recipes#show", type: :request do
       expect(d.jsonapi_type).to eq('recipes')
       expect(d.id).to eq(recipe.id)
     end
+
+    context 'total_likes_count' do
+      let!(:like) { create(:like, recipe: recipe) }
+
+      it 'returns the counter' do
+        make_request
+        expect(d.total_likes_count).to eq(1)
+      end
+    end
   end
 end
